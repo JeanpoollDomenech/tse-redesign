@@ -139,6 +139,6 @@ En esta sección vamos a documentar las decisiones tomadas durante el desarrollo
 
 # Autor
 
-Jeanpooll Alejandro Domenech Cerdas
-Sidney Salazar Jimenez
-Daryl Martinez Rodriguez
+- Jeanpooll Alejandro Domenech Cerdas
+- Sidney Salazar Jimenez
+- Daryl Martinez Rodriguez
