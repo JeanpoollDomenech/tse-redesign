@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+:root {
+  --tse-blue: #1A56DB;
+  --tse-blue-dark: #1E3A5F;
+  --tse-blue-light: #EBF5FF;
+  --tse-red: #DC2626;
+  --tse-gray-light: #F3F4F6;
+  --tse-gray-mid: #6B7280;
+  --tse-gray-dark: #1F2937;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--tse-gray-dark);
+}
