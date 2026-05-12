@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --tse-blue: #1A56DB;
@@ -12,9 +13,27 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--tse-gray-dark);
 }
+
+.dark body {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translate(-50%, 1.5rem); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+.animate-slide-up {
+  animation: slide-up 0.25s ease-out forwards;
+}
+
+.dark ::-webkit-scrollbar { width: 8px; }
+.dark ::-webkit-scrollbar-track { background: #1e293b; }
+.dark ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }

@@ -1,14 +1,9 @@
 import {
-  Building2,
-  FileText,
-  Vote,
-  Scale,
-  BookOpen,
-  BookMarked,
-  ArrowRight,
+  Building2, FileText, Vote, Scale, BookOpen, BookMarked, ArrowRight,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { mainMenuLinks } from "../../constants/navLinks";
+import UnavailableToast from "../ui/UnavailableToast";
+import { useUnavailable } from "../../hooks/useUnavailable";
 
 const icons = {
   "/sobre-tse": Building2,
@@ -19,53 +14,69 @@ const icons = {
   "/publicaciones": BookMarked,
 };
 
-const accentColors = [
-  "group-hover:text-blue-600 group-hover:bg-blue-50",
-  "group-hover:text-indigo-600 group-hover:bg-indigo-50",
-  "group-hover:text-red-600 group-hover:bg-red-50",
-  "group-hover:text-teal-600 group-hover:bg-teal-50",
-  "group-hover:text-green-600 group-hover:bg-green-50",
-  "group-hover:text-purple-600 group-hover:bg-purple-50",
+const cardAccents = [
+  { icon: "text-blue-600 bg-blue-100 dark:bg-blue-900/40 dark:text-blue-300", hover: "hover:border-blue-300" },
+  { icon: "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/40 dark:text-indigo-300", hover: "hover:border-indigo-300" },
+  { icon: "text-red-600 bg-red-100 dark:bg-red-900/40 dark:text-red-300", hover: "hover:border-red-300" },
+  { icon: "text-teal-600 bg-teal-100 dark:bg-teal-900/40 dark:text-teal-300", hover: "hover:border-teal-300" },
+  { icon: "text-green-600 bg-green-100 dark:bg-green-900/40 dark:text-green-300", hover: "hover:border-green-300" },
+  { icon: "text-purple-600 bg-purple-100 dark:bg-purple-900/40 dark:text-purple-300", hover: "hover:border-purple-300" },
 ];
 
 export default function MainCategories() {
-  return (
-    <section className="bg-gray-50 py-12" aria-label="Categorías principales">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl font-bold text-gray-800 mb-6">
-          Nuestros servicios
-        </h2>
+  const toast = useUnavailable();
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {mainMenuLinks.map((link, i) => {
-            const Icon = icons[link.href] || FileText;
-            return (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="group bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-3 hover:border-blue-200 hover:shadow-md transition-all duration-200"
-              >
-                <div
-                  className={`w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 transition-all duration-200 ${accentColors[i]}`}
+  const handleClick = (e) => {
+    e.preventDefault();
+    toast.show("Esta sección estará disponible próximamente.");
+  };
+
+  return (
+    <>
+      <section className="bg-gray-50 dark:bg-slate-800/50 py-12 transition-colors" aria-label="Categorías principales">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2 mb-6">
+            <span className="w-1 h-5 bg-blue-600 rounded-full" aria-hidden="true" />
+            <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+              Nuestros servicios
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {mainMenuLinks.map((link, i) => {
+              const Icon = icons[link.href] || FileText;
+              const accent = cardAccents[i];
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={handleClick}
+                  className={`group bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 flex flex-col gap-3 ${accent.hover} hover:shadow-md transition-all duration-200 cursor-pointer`}
                 >
-                  <Icon size={20} />
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-800 text-sm leading-snug">
-                    {link.label}
-                  </p>
-                  <p className="text-xs text-gray-400 mt-1 leading-snug">
-                    {link.description}
-                  </p>
-                </div>
-                <div className="mt-auto flex items-center gap-1 text-xs text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  Ver más <ArrowRight size={12} />
-                </div>
-              </Link>
-            );
-          })}
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${accent.icon}`}>
+                    <Icon size={20} />
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-800 dark:text-white text-sm leading-snug">
+                      {link.label}
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mt-1 leading-snug">
+                      {link.description}
+                    </p>
+                  </div>
+                  <div className="mt-auto flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                    Ver más <ArrowRight size={12} />
+                  </div>
+                </a>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {toast.visible && (
+        <UnavailableToast message={toast.message} onClose={toast.hide} />
+      )}
+    </>
   );
 }
