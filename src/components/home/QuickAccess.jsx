@@ -1,4 +1,5 @@
 import { FileText, Award, CreditCard, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { quickLinks } from "../../constants/navLinks";
 import UnavailableToast from "../ui/UnavailableToast";
 import { useUnavailable } from "../../hooks/useUnavailable";
@@ -15,13 +16,11 @@ const colors = [
   "bg-blue-800 hover:bg-blue-900",
 ];
 
+// Rutas que ya tienen página real
+const rutasActivas = ["/consultas-civiles"];
+
 export default function QuickAccess() {
   const toast = useUnavailable();
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    toast.show("Este servicio estará disponible próximamente.");
-  };
 
   return (
     <>
@@ -37,22 +36,36 @@ export default function QuickAccess() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {quickLinks.map((link, i) => {
               const Icon = icons[link.href] || FileText;
+              const activo = rutasActivas.includes(link.href);
+
+              if (activo) {
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className={`flex items-center justify-between gap-3 ${colors[i]} text-white px-5 py-4 rounded-xl transition-all duration-200 group shadow-sm`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Icon size={20} className="flex-shrink-0 opacity-90" />
+                      <span className="font-bold text-sm">{link.label}</span>
+                    </div>
+                    <ArrowRight size={16} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                  </Link>
+                );
+              }
+
               return (
-                <a
+                <button
                   key={link.href}
-                  href={link.href}
-                  onClick={handleClick}
-                  className={`flex items-center justify-between gap-3 ${colors[i]} text-white px-5 py-4 rounded-xl transition-all duration-200 group shadow-sm cursor-pointer`}
+                  onClick={() => toast.show("Este servicio estará disponible próximamente.")}
+                  className={`flex items-center justify-between gap-3 ${colors[i]} text-white px-5 py-4 rounded-xl transition-all duration-200 group shadow-sm w-full text-left`}
                 >
                   <div className="flex items-center gap-3">
                     <Icon size={20} className="flex-shrink-0 opacity-90" />
                     <span className="font-bold text-sm">{link.label}</span>
                   </div>
-                  <ArrowRight
-                    size={16}
-                    className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all"
-                  />
-                </a>
+                  <ArrowRight size={16} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                </button>
               );
             })}
           </div>

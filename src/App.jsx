@@ -3,6 +3,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
+import ConsultasCiviles from "./pages/ConsultasCiviles";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/consultas-civiles" element={<ConsultasCiviles />} />
             </Routes>
           </div>
           <Footer />
