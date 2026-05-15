@@ -1,5 +1,5 @@
 import { Eye, BookOpen, Users, ArrowRight } from "lucide-react";
-import { featuredSections } from "../../constants/navLinks";
+import { useLang } from "../../context/LangContext";
 import UnavailableToast from "../ui/UnavailableToast";
 import { useUnavailable } from "../../hooks/useUnavailable";
 
@@ -10,7 +10,6 @@ const config = {
     bg: "bg-teal-50 dark:bg-teal-900/20",
     border: "border-teal-100 dark:border-teal-800",
     btnColor: "bg-teal-600 hover:bg-teal-700",
-    description: "Consulte información sobre presupuestos, contrataciones y gestión institucional del TSE.",
   },
   "/revista": {
     Icon: BookOpen,
@@ -18,7 +17,6 @@ const config = {
     bg: "bg-indigo-50 dark:bg-indigo-900/20",
     border: "border-indigo-100 dark:border-indigo-800",
     btnColor: "bg-indigo-600 hover:bg-indigo-700",
-    description: "Publicación académica especializada en temas electorales y de derecho público.",
   },
   "/participacion-mujeres": {
     Icon: Users,
@@ -26,32 +24,35 @@ const config = {
     bg: "bg-pink-50 dark:bg-pink-900/20",
     border: "border-pink-100 dark:border-pink-800",
     btnColor: "bg-pink-600 hover:bg-pink-700",
-    description: "Recursos e información sobre la participación política femenina en Costa Rica.",
   },
 };
 
 export default function FeaturedSections() {
+  const { t } = useLang();
   const toast = useUnavailable();
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    toast.show("Esta sección estará disponible próximamente.");
-  };
+  const featuredSections = [
+    { label: t.links.transparencia, href: "/transparencia" },
+    { label: t.links.revista, href: "/revista" },
+    { label: t.links.participacion, href: "/participacion-mujeres" },
+  ];
 
   return (
     <>
-      <section className="bg-white dark:bg-slate-900 py-12 transition-colors" aria-label="Secciones destacadas">
+      <section className="bg-white dark:bg-slate-900 py-12 transition-colors" aria-label={t.featured.title}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 mb-6">
             <span className="w-1 h-5 bg-blue-600 rounded-full" aria-hidden="true" />
-            <h2 className="text-xl font-bold text-gray-800 dark:text-white">Secciones destacadas</h2>
+            <h2 className="text-xl font-bold text-gray-800 dark:text-white">{t.featured.title}</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {featuredSections.map((section) => {
               const c = config[section.href];
               if (!c) return null;
-              const { Icon, color, bg, border, btnColor, description } = c;
+              const { Icon, color, bg, border, btnColor } = c;
+              const description = t.featured.descriptions[section.href];
+
               return (
                 <div key={section.href} className={`rounded-xl border ${border} ${bg} p-6 flex flex-col gap-4 transition-colors`}>
                   <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center shadow-sm">
@@ -63,13 +64,12 @@ export default function FeaturedSections() {
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-slate-300 leading-relaxed">{description}</p>
                   </div>
-                  <a
-                    href={section.href}
-                    onClick={handleClick}
+                  <button
+                    onClick={() => toast.show(t.toast.section)}
                     className={`inline-flex items-center gap-2 ${btnColor} text-white text-sm font-bold px-4 py-2.5 rounded-lg transition-colors w-fit cursor-pointer`}
                   >
-                    Ingresar <ArrowRight size={14} />
-                  </a>
+                    {t.featured.enter} <ArrowRight size={14} />
+                  </button>
                 </div>
               );
             })}
@@ -77,9 +77,7 @@ export default function FeaturedSections() {
         </div>
       </section>
 
-      {toast.visible && (
-        <UnavailableToast message={toast.message} onClose={toast.hide} />
-      )}
+      {toast.visible && <UnavailableToast message={toast.message} onClose={toast.hide} />}
     </>
   );
 }
