@@ -77,6 +77,7 @@ Estas son las principales herramientas utilizadas dentro del proyecto:
 ```bash
 npm install tailwindcss @tailwindcss/vite
 npm install lucide-react react-router-dom
+npm install react-router-dom
 ```
 
 ---
