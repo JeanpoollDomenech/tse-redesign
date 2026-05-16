@@ -8,6 +8,7 @@ import ConsultasCiviles from "./pages/ConsultasCiviles";
 import Transparencia from "./pages/Transparencia";
 import Revista from "./pages/Revista";
 import ParticipacionMujeres from "./pages/ParticipacionMujeres";
+import TSE from "./pages/TSE";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
                 <Route path="/transparencia" element={<Transparencia />} />
                 <Route path="/revista" element={<Revista />} />
                 <Route path="/participacion-mujeres" element={<ParticipacionMujeres />} />
+                <Route path="/sobre-tse" element={<TSE />} />
               </Routes>
             </div>
             <Footer />
