@@ -17,6 +17,15 @@ const icons = [Building2, FileText, Vote, Scale, BookOpen, BookMarked];
 export default function MainCategories() {
   const { t } = useLang();
   const toast = useUnavailable();
+  const navigate = useNavigate();
+  const handleClick = (e, href) => {
+    e.preventDefault();
+    if (href === '/sobre-tse') {
+      navigate(href);
+    } else {
+      toast.show("Esta sección estará disponible próximamente.");
+    }
+  };
 
   const mainMenuLinks = [
     { label: t.links.sobreTSE, href: "/sobre-tse", description: t.links.sobreTSEDesc },
@@ -41,7 +50,7 @@ export default function MainCategories() {
               const Icon = icons[i];
               const accent = cardAccents[i];
               return (
-                <button key={link.href} onClick={() => toast.show(t.toast.section)}
+                <button key={link.href} onClick={(e) => handleClick(e, link.href)}
                   className={`group bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 flex flex-col gap-3 ${accent.hover} hover:shadow-md transition-all duration-200 text-left w-full`}>
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${accent.icon}`}>
                     <Icon size={20} />
