@@ -2,6 +2,8 @@ import { Building2, FileText, Vote, Scale, BookOpen, BookMarked, ArrowRight } fr
 import { useLang } from "../../context/LangContext";
 import UnavailableToast from "../ui/UnavailableToast";
 import { useUnavailable } from "../../hooks/useUnavailable";
+import { useNavigate } from "react-router-dom";
+
 
 const cardAccents = [
   { icon: "text-blue-600 bg-blue-100 dark:bg-blue-900/40 dark:text-blue-300", hover: "hover:border-blue-300" },
