@@ -2,6 +2,7 @@ import { Eye, BookOpen, Users, ArrowRight } from "lucide-react";
 import { useLang } from "../../context/LangContext";
 import UnavailableToast from "../ui/UnavailableToast";
 import { useUnavailable } from "../../hooks/useUnavailable";
+import { useNavigate } from "react-router-dom";
 
 const config = {
   "/transparencia": {
@@ -30,6 +31,7 @@ const config = {
 export default function FeaturedSections() {
   const { t } = useLang();
   const toast = useUnavailable();
+  const navigate = useNavigate();
 
   const featuredSections = [
     { label: t.links.transparencia, href: "/transparencia" },
@@ -65,7 +67,7 @@ export default function FeaturedSections() {
                     <p className="text-sm text-gray-600 dark:text-slate-300 leading-relaxed">{description}</p>
                   </div>
                   <button
-                    onClick={() => toast.show(t.toast.section)}
+                    onClick={() => navigate(section.href)}
                     className={`inline-flex items-center gap-2 ${btnColor} text-white text-sm font-bold px-4 py-2.5 rounded-lg transition-colors w-fit cursor-pointer`}
                   >
                     {t.featured.enter} <ArrowRight size={14} />
