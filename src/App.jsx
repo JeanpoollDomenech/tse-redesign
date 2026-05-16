@@ -5,6 +5,9 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
 import ConsultasCiviles from "./pages/ConsultasCiviles";
+import Transparencia from "./pages/Transparencia";
+import Revista from "./pages/Revista";
+import ParticipacionMujeres from "./pages/ParticipacionMujeres";
 
 export default function App() {
   return (
@@ -17,6 +20,9 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/consultas-civiles" element={<ConsultasCiviles />} />
+                <Route path="/transparencia" element={<Transparencia />} />
+                <Route path="/revista" element={<Revista />} />
+                <Route path="/participacion-mujeres" element={<ParticipacionMujeres />} />
               </Routes>
             </div>
             <Footer />
