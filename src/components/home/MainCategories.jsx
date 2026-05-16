@@ -22,7 +22,7 @@ export default function MainCategories() {
   const navigate = useNavigate();
   const handleClick = (e, href) => {
     e.preventDefault();
-    if (href === '/sobre-tse') {
+    if (href === '/sobre-tse' || href === '/elecciones' || href === '/registro-civil') {
       navigate(href);
     } else {
       toast.show("Esta sección estará disponible próximamente.");
