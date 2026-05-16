@@ -9,6 +9,8 @@ import Transparencia from "./pages/Transparencia";
 import Revista from "./pages/Revista";
 import ParticipacionMujeres from "./pages/ParticipacionMujeres";
 import TSE from "./pages/TSE";
+import Elections from "./pages/Elections";
+import CivilRegistration from "./pages/CivilRegistration";
 
 export default function App() {
   return (
@@ -25,6 +27,8 @@ export default function App() {
                 <Route path="/revista" element={<Revista />} />
                 <Route path="/participacion-mujeres" element={<ParticipacionMujeres />} />
                 <Route path="/sobre-tse" element={<TSE />} />
+                <Route path="/elecciones" element={<Elections />} />
+                <Route path="/registro-civil" element={<CivilRegistration />} />
               </Routes>
             </div>
             <Footer />
